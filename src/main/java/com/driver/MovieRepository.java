@@ -1,11 +1,14 @@
 package com.driver;
+import org.springframework.stereotype.Repository;
+
 import java.util.*;
+@Repository
 public class MovieRepository {
 
-    private HashMap<String, Movie> movieHashMap;
-    private HashMap<String, Director> directorHashMap;
+    HashMap<String, Movie> movieHashMap;
+     HashMap<String, Director> directorHashMap;
 
-    private HashMap<String, List<String>> movieDirectorHashMap;
+    HashMap<String, List<String>> movieDirectorHashMap;
 
     public MovieRepository(){
         this.movieHashMap= new HashMap<String, Movie>();
@@ -71,8 +74,7 @@ public class MovieRepository {
         movieDirectorHashMap.remove(director);
 
         //delete the director from direcotrmap
-        if(directorHashMap.containsKey(director))
-            directorHashMap.remove(director);
+        directorHashMap.remove(director);
 
     }
 
@@ -83,14 +85,11 @@ public class MovieRepository {
         directorHashMap = new HashMap<>();
 
         for(String director : movieDirectorHashMap.keySet()){
-            for(String movie : movieDirectorHashMap.get(director)){
-                movieSet.add(movie);
-            }
+            movieSet.addAll(movieDirectorHashMap.get(director));
         }
 
         for(String movie : movieSet){
-            if(movieHashMap.containsKey(movie))
-                movieHashMap.remove(movie);
+            movieHashMap.remove(movie);
         }
 
         movieDirectorHashMap = new HashMap<>();
